@@ -15,6 +15,8 @@ namespace WU_Einteilung
     {
         private Worksheet slist;
         private Worksheet klist;
+        private Range slist_range;
+        private Range klist_range;
         private Microsoft.Office.Interop.Excel.Application app = new Microsoft.Office.Interop.Excel.Application();
         private Microsoft.Office.Interop.Excel.Workbook wb;
         private string document_path;
@@ -41,19 +43,15 @@ namespace WU_Einteilung
         {
             
         }
-        private void Read_Document(string path)
-        {
-            
-        }
-
+        
         private void button1_Click(object sender, EventArgs e)
         {
             document_path = tbx_path.Text;
             wb = app.Workbooks.Open(@document_path);
             slist = (Worksheet)wb.Sheets[1];
             klist = (Worksheet)wb.Sheets[2];
-            Range slist_range = slist.UsedRange;
-            Range klist_range = klist.UsedRange;
+            slist_range = slist.UsedRange;
+            klist_range = klist.UsedRange;
             for (int i = 0; String.Equals(slist_range.Cells[i+2, 2].Value,""); i++)
             {
                 slist_range.Cells[i+2, 1].Value = i;
@@ -83,6 +81,22 @@ namespace WU_Einteilung
 
         private void tbx_path_TextChanged(object sender, EventArgs e)
         {
+
+        }
+        
+        private void algorithmus()
+        {
+            int[] erstwahlen = new int[kurse_id.Length];
+            for (int slist_counter=0; String.Equals(slist_range.Cells[slist_counter+2, 2].Value,""); slist_counter++)
+            {
+                for (int kid_counter=0; kid_counter != kurse_id.Length; kid_counter++)
+                {
+                    if (String.Equals(kurse_id[kid_counter], slist_range.Cells[slist_counter + 2, 6].Value))
+                    {
+                        erstwahlen[kid_counter]++;
+                    }
+                }
+            }
 
         }
     }
