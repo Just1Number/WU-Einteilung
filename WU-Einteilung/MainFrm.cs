@@ -13,6 +13,7 @@ namespace WU_Einteilung
 {
     public partial class MainFrm : Form
     {
+        #region Variabeln
         private Worksheet slist;
         private Worksheet klist;
         private Range slist_range;
@@ -20,20 +21,20 @@ namespace WU_Einteilung
         private Microsoft.Office.Interop.Excel.Application app = new Microsoft.Office.Interop.Excel.Application();
         private Microsoft.Office.Interop.Excel.Workbook wb;
         private string document_path;
-        private int[] schueler_id;
-        private string[] schueler_namen;
-        private string[] schueler_vornamen;
-        private string[] schueler_klasse;
-        private string[] schueler_klassenlehrer;
-        private string[] schueler_erstwahl;
-        private string[] schueler_zweitwahl;
-        private string[] schueler_drittwahl;
-        private string[] kurse_id;
-        private int[] kurse_maxpersonen;
-        private int[] kurse_minpersonen;
-        private bool[] kurse_klasse8;
-        private bool[] kurse_klasse9;
-
+        private List<int> schueler_id = new List<int>();
+        private List<string> schueler_namen         = new List<string>();
+        private List<string> schueler_vornamen      = new List<string>();
+        private List<string> schueler_klasse        = new List<string>();
+        private List<string> schueler_klassenlehrer = new List<string>();
+        private List<string> schueler_erstwahl      = new List<string>();
+        private List<string> schueler_zweitwahl     = new List<string>();
+        private List<string> schueler_drittwahl     = new List<string>();
+        private List<string> kurse_id               = new List<string>();
+        private List<int> kurse_maxpersonen = new List<int>();
+        private List<int> kurse_minpersonen = new List<int>();
+        private List<bool> kurse_klasse8 = new List<bool>();
+        private List<bool> kurse_klasse9 = new List<bool>();
+        #endregion
         public MainFrm()
         {
             InitializeComponent();
@@ -52,25 +53,25 @@ namespace WU_Einteilung
             klist = (Worksheet)wb.Sheets[2];
             slist_range = slist.UsedRange;
             klist_range = klist.UsedRange;
-            for (int i = 0; String.Equals(slist_range.Cells[i+2, 2].Value,""); i++)
+            for (int i = 0; !String.Equals(slist_range.Cells[i+2, 2].Value,""); i++)
             {
                 slist_range.Cells[i+2, 1].Value = i;
-                schueler_id[i]           = slist_range.Cells[i+2, 1].Value;
-                schueler_namen[i]        = slist_range.Cells[i+2, 2].Value;
-                schueler_vornamen[i]     = slist_range.Cells[i+2, 3].Value;
-                schueler_klasse[i]       = slist_range.Cells[i+2, 4].Value;
-                schueler_klassenlehrer[i]= slist_range.Cells[i+2, 5].Value;
-                schueler_erstwahl[i]     = slist_range.Cells[i+2, 6].Value;
-                schueler_zweitwahl[i]    = slist_range.Cells[i+2, 7].Value;
-                schueler_drittwahl[i]    = slist_range.Cells[i+2, 8].Value;
+                schueler_id.Add(            slist_range.Cells[i+2, 1].Value);
+                schueler_namen.Add(         slist_range.Cells[i+2, 2].Value);
+                schueler_vornamen.Add(      slist_range.Cells[i+2, 3].Value);
+                schueler_klasse.Add(        slist_range.Cells[i+2, 4].Value);
+                schueler_klassenlehrer.Add( slist_range.Cells[i+2, 5].Value);
+                schueler_erstwahl.Add(      slist_range.Cells[i+2, 6].Value);
+                schueler_zweitwahl.Add(     slist_range.Cells[i+2, 7].Value);
+                schueler_drittwahl.Add(     slist_range.Cells[i+2, 8].Value);
             }
-            for (int i = 0; String.Equals(klist_range.Cells[i+2, 1].Value,""); i++)
+            for (int i = 0; !String.Equals(klist_range.Cells[i+2, 1].Value,""); i++)
             {
-                kurse_id[i] = klist_range.Cells[i + 2, 1].value;
-                kurse_maxpersonen[i] = klist_range.Cells[i + 2, 8].value;
-                kurse_minpersonen[i] = klist_range.Cells[i + 2, 7].value;
-                if (klist_range.Cells[i + 2, 4].Value == 1) kurse_klasse8[i] = true; else kurse_klasse8[i] = false;
-                if (klist_range.Cells[i + 2, 5].Value == 1) kurse_klasse9[i] = true; else kurse_klasse9[i] = false;
+                kurse_id.Add(klist_range.Cells[i + 2, 1].value);
+                kurse_maxpersonen.Add(klist_range.Cells[i + 2, 8].value);
+                kurse_minpersonen.Add(klist_range.Cells[i + 2, 7].value);
+                if (klist_range.Cells[i + 2, 4].Value == 1) kurse_klasse8.Add(true); else kurse_klasse8.Add(false);
+                if (klist_range.Cells[i + 2, 5].Value == 1) kurse_klasse9.Add(true); else kurse_klasse9.Add(false);
             }
             //a1.Value = "1";
             //string cellValue=a1.Value;
@@ -86,10 +87,15 @@ namespace WU_Einteilung
         
         private void algorithmus()
         {
-            int[] erstwahlen = new int[kurse_id.Length];
-            for (int slist_counter=0; String.Equals(slist_range.Cells[slist_counter+2, 2].Value,""); slist_counter++)
+            List<int> zuloeschende_items = new List<int>();
+            int[] erstwahlen = new int[kurse_id.Count];
+            for (int n=0;n<erstwahlen.Length;n++)
             {
-                for (int kid_counter=0; kid_counter != kurse_id.Length; kid_counter++)
+                erstwahlen[n] = 0;
+            }
+            for (int slist_counter=0; !String.Equals(slist_range.Cells[slist_counter+2, 2].Value,""); slist_counter++)
+            {
+                for (int kid_counter=0; kid_counter < kurse_id.Count; kid_counter++)
                 {
                     if (String.Equals(kurse_id[kid_counter], slist_range.Cells[slist_counter + 2, 6].Value))
                     {
@@ -97,7 +103,47 @@ namespace WU_Einteilung
                     }
                 }
             }
+            for (int kid_counter = 0; kid_counter < kurse_id.Count; kid_counter++)
+            {
+                if (erstwahlen[kid_counter] <= kurse_maxpersonen[kid_counter])
+                {
+                    for (int slist_counter = 0; slist_counter < schueler_id.Count; slist_counter++)
+                    {
+                        slist_range.Cells[schueler_id[slist_counter] + 2, 9].Value = kurse_id[kid_counter];
+                        zuloeschende_items.Add(slist_counter);
+                    }
+                }
+            }
+            schueler_lists_reinigen(zuloeschende_items);
+            //for (int n = 0; n < zuloeschende_items.Count; n++)
+            //{
+            //    schueler_id.Remove(schueler_id[zuloeschende_items[n] - n]);
+            //    schueler_namen.Remove(schueler_namen[zuloeschende_items[n] - n]);
+            //    schueler_vornamen.Remove(schueler_vornamen[zuloeschende_items[n] - n]);
+            //    schueler_klasse.Remove(schueler_klasse[zuloeschende_items[n] - n]);
+            //    schueler_klassenlehrer.Remove(schueler_klassenlehrer[zuloeschende_items[n] - n]);
+            //    schueler_erstwahl.Remove(schueler_erstwahl[zuloeschende_items[n] - n]);
+            //    schueler_zweitwahl.Remove(schueler_zweitwahl[zuloeschende_items[n] - n]);
+            //    schueler_drittwahl.Remove(schueler_drittwahl[zuloeschende_items[n] - n]);
+            //}
+            zuloeschende_items = new List<int>();
 
+
+        }
+
+        private void schueler_lists_reinigen(List<int> zuloeschende_items)
+        {
+            for (int n = 0; n < zuloeschende_items.Count; n++)
+            {
+                schueler_id.Remove(schueler_id[zuloeschende_items[n] - n]);
+                schueler_namen.Remove(schueler_namen[zuloeschende_items[n] - n]);
+                schueler_vornamen.Remove(schueler_vornamen[zuloeschende_items[n] - n]);
+                schueler_klasse.Remove(schueler_klasse[zuloeschende_items[n] - n]);
+                schueler_klassenlehrer.Remove(schueler_klassenlehrer[zuloeschende_items[n] - n]);
+                schueler_erstwahl.Remove(schueler_erstwahl[zuloeschende_items[n] - n]);
+                schueler_zweitwahl.Remove(schueler_zweitwahl[zuloeschende_items[n] - n]);
+                schueler_drittwahl.Remove(schueler_drittwahl[zuloeschende_items[n] - n]);
+            }
         }
     }
 }
