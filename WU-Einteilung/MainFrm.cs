@@ -46,7 +46,7 @@ namespace WU_Einteilung
             
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btn_zon_Click(object sender, EventArgs e)
         {
             document_path = tbx_path.Text;
             wb = app.Workbooks.Open(@document_path);
@@ -79,11 +79,6 @@ namespace WU_Einteilung
             //MessageBox.Show(cellValue);
             wb.Save();
             wb.Close();
-        }
-
-        private void tbx_path_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }
