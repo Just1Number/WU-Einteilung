@@ -86,13 +86,11 @@ namespace WU_Einteilung
         {
 
         }
-<<<<<<< HEAD
 
         private void kurslisten_erstellen()
         {
 
         }
-=======
         
         private void algorithmus()
         {
@@ -284,6 +282,5 @@ namespace WU_Einteilung
                 schueler_drittwahl.Remove(schueler_drittwahl[zuloeschende_items[n] - n]);
             }
         }
->>>>>>> dev
     }
 }
