@@ -19,7 +19,8 @@ namespace WU_Einteilung
         private Range slist_range;
         private Range klist_range;
         private Microsoft.Office.Interop.Excel.Application app = new Microsoft.Office.Interop.Excel.Application();
-        private Microsoft.Office.Interop.Excel.Workbook wb;
+        private Microsoft.Office.Interop.Excel.Workbook wu_liste;
+        private Microsoft.Office.Interop.Excel.Workbook kurslisten;
         private string document_path;
         private List<int> schueler_id = new List<int>();
         private List<string> schueler_namen         = new List<string>();
@@ -44,18 +45,13 @@ namespace WU_Einteilung
         {
             
         }
-        
-        private void Read_Document(string path)
-        {
-            
-        }
-
+       
         private void btn_zon_Click(object sender, EventArgs e)
         {
             document_path = tbx_path.Text;
-            wb = app.Workbooks.Open(@document_path);
-            slist = (Worksheet)wb.Sheets[1];
-            klist = (Worksheet)wb.Sheets[2];
+            wu_liste = app.Workbooks.Open(@document_path);
+            slist = (Worksheet)wu_liste.Sheets[1];
+            klist = (Worksheet)wu_liste.Sheets[2];
             slist_range = slist.UsedRange;
             klist_range = klist.UsedRange;
             for (int i = 0; !String.Equals(slist_range.Cells[i+3, 2].Value,""); i++)
@@ -78,18 +74,70 @@ namespace WU_Einteilung
                 if (klist_range.Cells[i + 2, 4].Value == 1) kurse_klasse8.Add(true); else kurse_klasse8.Add(false);
                 if (klist_range.Cells[i + 2, 5].Value == 1) kurse_klasse9.Add(true); else kurse_klasse9.Add(false);
             }
-            wb.Save();
-            wb.Close();
+            wu_liste.Save();
+            wu_liste.Close();
         }
 
-        private void tbx_path_TextChanged(object sender, EventArgs e)
+        private void dokument_auslesen()
         {
-
+            document_path = tbx_path.Text;
+            wu_liste = app.Workbooks.Open(@document_path);
+            app.Visible = true;
+            slist = (Worksheet)wu_liste.Sheets[1];
+            klist = (Worksheet)wu_liste.Sheets[2];
+            slist_range = slist.UsedRange;
+            klist_range = klist.UsedRange;
+            schueler_id.Clear();
+            schueler_namen.Clear();
+            schueler_vornamen.Clear();
+            schueler_klasse.Clear();
+            schueler_klassenlehrer.Clear();
+            schueler_erstwahl.Clear();
+            schueler_zweitwahl.Clear();
+            schueler_drittwahl.Clear();
+            kurse_id.Clear();
+            kurse_klasse8.Clear();
+            kurse_klasse9.Clear();
+            kurse_maxpersonen.Clear();
+            kurse_minpersonen.Clear();
+            for (int i = 0; !String.Equals(slist_range.Cells[i + 3, 2].Value, ""); i++)
+            {
+                slist_range.Cells[i + 2, 1].Value = i;
+                schueler_id.Add(slist_range.Cells[i + 2, 1].Value);
+                schueler_namen.Add(slist_range.Cells[i + 2, 2].Value);
+                schueler_vornamen.Add(slist_range.Cells[i + 2, 3].Value);
+                schueler_klasse.Add(slist_range.Cells[i + 2, 4].Value);
+                schueler_klassenlehrer.Add(slist_range.Cells[i + 2, 5].Value);
+                schueler_erstwahl.Add(slist_range.Cells[i + 2, 6].Value);
+                schueler_zweitwahl.Add(slist_range.Cells[i + 2, 7].Value);
+                schueler_drittwahl.Add(slist_range.Cells[i + 2, 8].Value);
+            }
+            for (int i = 0; !String.Equals(klist_range.Cells[i + 2, 1].Value, ""); i++)
+            {
+                kurse_id.Add(klist_range.Cells[i + 2, 1].value);
+                kurse_maxpersonen.Add(klist_range.Cells[i + 2, 8].value);
+                kurse_minpersonen.Add(klist_range.Cells[i + 2, 7].value);
+                if (klist_range.Cells[i + 2, 4].Value == 1) kurse_klasse8.Add(true); else kurse_klasse8.Add(false);
+                if (klist_range.Cells[i + 2, 5].Value == 1) kurse_klasse9.Add(true); else kurse_klasse9.Add(false);
+            }
         }
-
         private void kurslisten_erstellen()
         {
+            List<int> zuloeschende_items = new List<int>();
+            List<int> kurs = new List<int>();
+            dokument_auslesen();
+            for (int kid_counter = 0; kid_counter < kurse_id.Count; kid_counter++)
+            {
+                zuloeschende_items.Clear();
+                kurs.Clear();
+                for (int slist_counter = 0; slist_counter < schueler_id.Count; slist_counter++)
+                {
+                    if (String.Equals(kurse_id[kid_counter], slist_range.Cells[slist_counter + 2, 9].Value))
+                    {
 
+                    }
+                }
+            }
         }
         
         private void algorithmus()
