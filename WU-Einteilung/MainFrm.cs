@@ -44,8 +44,17 @@ namespace WU_Einteilung
         {
             
         }
+<<<<<<< HEAD
         
         private void button1_Click(object sender, EventArgs e)
+=======
+        private void Read_Document(string path)
+        {
+            
+        }
+
+        private void btn_zon_Click(object sender, EventArgs e)
+>>>>>>> gui
         {
             document_path = tbx_path.Text;
             wb = app.Workbooks.Open(@document_path);
@@ -76,6 +85,7 @@ namespace WU_Einteilung
             wb.Save();
             wb.Close();
         }
+<<<<<<< HEAD
 
         private void tbx_path_TextChanged(object sender, EventArgs e)
         {
@@ -272,5 +282,7 @@ namespace WU_Einteilung
                 schueler_drittwahl.Remove(schueler_drittwahl[zuloeschende_items[n] - n]);
             }
         }
+=======
+>>>>>>> gui
     }
 }
