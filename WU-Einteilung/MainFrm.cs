@@ -85,5 +85,10 @@ namespace WU_Einteilung
         {
 
         }
+
+        private void kurslisten_erstellen()
+        {
+
+        }
     }
 }
