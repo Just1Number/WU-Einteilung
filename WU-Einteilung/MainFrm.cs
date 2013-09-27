@@ -136,7 +136,7 @@ namespace WU_Einteilung
                     {
                         slist_range.Cells[schueler_id[kurs[kurs_counter]] + 2, 9].Value = kurse_id[kid_counter]; //Allen Schülern, die noch in kurs drin sind wird der entsprechende Kurs zugeordnet
                         kurse_maxpersonen[kid_counter]--; //Freie Plätze werden runtergezählt
-                        zuloeschende_items.Add(kurs[kurs_counter]);//
+                        zuloeschende_items.Add(kurs[kurs_counter]);//positionen der Eingeteilten Schüler wird in die Liste geschrieben
                     }
                 }
             }
@@ -148,7 +148,7 @@ namespace WU_Einteilung
             zuloeschende_items.Clear();
             for (int n = 0; n < wahlen.Length; n++)
             {
-                wahlen[n] = 0;
+                wahlen[n] = 0; //wahlen wird wieder geleert
             }
             for (int slist_counter = 0; slist_counter < schueler_id.Count; slist_counter++)
             {
@@ -156,7 +156,7 @@ namespace WU_Einteilung
                 {
                     if (String.Equals(kurse_id[kid_counter], slist_range.Cells[schueler_id[slist_counter] + 2, 7].Value))
                     {
-                        wahlen[kid_counter]++;
+                        wahlen[kid_counter]++; //wahlen wird neu gefüllt, diesmal mit der kleineren schueler liste und den zweitwahlen
                     }
                 }
             }
@@ -168,7 +168,7 @@ namespace WU_Einteilung
                     {
                         if (String.Equals(kurse_id[kid_counter], slist_range.Cells[schueler_id[slist_counter] + 2, 7].Value))
                         {
-                            slist_range.Cells[schueler_id[slist_counter] + 2, 9].Value = kurse_id[kid_counter];
+                            slist_range.Cells[schueler_id[slist_counter] + 2, 9].Value = kurse_id[kid_counter]; //wenn eine zweitwahl weniger getätigt wurde als freie Plätze da sind werden alle die diese Zweitwahl getätigt haben zugeordnet
                             kurse_maxpersonen[kid_counter]--;
                             zuloeschende_items.Add(slist_counter);
                         }
@@ -196,6 +196,8 @@ namespace WU_Einteilung
                     }
                 }
             }
+            zuloeschende_items.Sort();
+            schueler_lists_reinigen(zuloeschende_items);
             #endregion
 
             #region Drittwahlen werden zugeordnet
@@ -208,7 +210,7 @@ namespace WU_Einteilung
             {
                 for (int kid_counter = 0; kid_counter < kurse_id.Count; kid_counter++)
                 {
-                    if (String.Equals(kurse_id[kid_counter], slist_range.Cells[schueler_id[slist_counter] + 2, 7].Value))
+                    if (String.Equals(kurse_id[kid_counter], slist_range.Cells[schueler_id[slist_counter] + 2, 8].Value))
                     {
                         wahlen[kid_counter]++;
                     }
@@ -220,7 +222,7 @@ namespace WU_Einteilung
                 {
                     for (int slist_counter = 0; slist_counter < schueler_id.Count; slist_counter++)
                     {
-                        if (String.Equals(kurse_id[kid_counter], slist_range.Cells[schueler_id[slist_counter] + 2, 7].Value))
+                        if (String.Equals(kurse_id[kid_counter], slist_range.Cells[schueler_id[slist_counter] + 2, 8].Value))
                         {
                             slist_range.Cells[schueler_id[slist_counter] + 2, 9].Value = kurse_id[kid_counter];
                             kurse_maxpersonen[kid_counter]--;
@@ -233,7 +235,7 @@ namespace WU_Einteilung
                     kurs.Clear();
                     for (int slist_counter = 0; slist_counter < schueler_id.Count; slist_counter++)
                     {
-                        if (String.Equals(kurse_id[kid_counter], slist_range.Cells[schueler_id[slist_counter] + 2, 7].Value))
+                        if (String.Equals(kurse_id[kid_counter], slist_range.Cells[schueler_id[slist_counter] + 2, 8].Value))
                         {
                             kurs.Add(slist_counter);
                         }
@@ -250,6 +252,8 @@ namespace WU_Einteilung
                     }
                 }
             }
+            zuloeschende_items.Sort();
+            schueler_lists_reinigen(zuloeschende_items);
             #endregion
 
         }
