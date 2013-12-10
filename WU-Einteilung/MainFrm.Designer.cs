@@ -32,11 +32,12 @@
             this.tbx_path = new System.Windows.Forms.TextBox();
             this.btn_list = new System.Windows.Forms.Button();
             this.lbl_path = new System.Windows.Forms.Label();
+            this.lbx_log = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // btn_zon
             // 
-            this.btn_zon.Location = new System.Drawing.Point(12, 38);
+            this.btn_zon.Location = new System.Drawing.Point(12, 108);
             this.btn_zon.Name = "btn_zon";
             this.btn_zon.Size = new System.Drawing.Size(234, 48);
             this.btn_zon.TabIndex = 0;
@@ -50,11 +51,11 @@
             this.tbx_path.Name = "tbx_path";
             this.tbx_path.Size = new System.Drawing.Size(408, 20);
             this.tbx_path.TabIndex = 1;
-            this.tbx_path.Text = "D:\\Users\\Johannes\\Desktop\\test";
+            this.tbx_path.Text = "Pfad";
             // 
             // btn_list
             // 
-            this.btn_list.Location = new System.Drawing.Point(286, 38);
+            this.btn_list.Location = new System.Drawing.Point(286, 108);
             this.btn_list.Name = "btn_list";
             this.btn_list.Size = new System.Drawing.Size(234, 48);
             this.btn_list.TabIndex = 2;
@@ -70,11 +71,19 @@
             this.lbl_path.TabIndex = 3;
             this.lbl_path.Text = "Pfad der WU Liste:";
             // 
+            // lbx_log
+            // 
+            this.lbx_log.Location = new System.Drawing.Point(15, 40);
+            this.lbx_log.Name = "lbx_log";
+            this.lbx_log.Size = new System.Drawing.Size(505, 56);
+            this.lbx_log.TabIndex = 4;
+            // 
             // MainFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(532, 96);
+            this.ClientSize = new System.Drawing.Size(532, 168);
+            this.Controls.Add(this.lbx_log);
             this.Controls.Add(this.lbl_path);
             this.Controls.Add(this.btn_list);
             this.Controls.Add(this.tbx_path);
@@ -93,6 +102,7 @@
         private System.Windows.Forms.TextBox tbx_path;
         private System.Windows.Forms.Button btn_list;
         private System.Windows.Forms.Label lbl_path;
+        private System.Windows.Forms.ListBox lbx_log;
     }
 }
 

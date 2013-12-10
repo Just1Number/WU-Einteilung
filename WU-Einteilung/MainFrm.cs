@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
+using System.Collections;
 
 namespace WU_Einteilung
 {
@@ -18,7 +20,7 @@ namespace WU_Einteilung
         private Worksheet klist;
         private Range slist_range;
         private Range klist_range;
-        private Microsoft.Office.Interop.Excel.Application app = new Microsoft.Office.Interop.Excel.Application();
+        private Microsoft.Office.Interop.Excel.Application myExcel = new Microsoft.Office.Interop.Excel.Application();
         private Microsoft.Office.Interop.Excel.Workbook wu_liste;
         private Microsoft.Office.Interop.Excel.Workbook kurslisten;
         private string document_path;
@@ -43,110 +45,95 @@ namespace WU_Einteilung
 
         private void MainFrm_Load(object sender, EventArgs e)
         {
-            
+
         }
        
         private void btn_zon_Click(object sender, EventArgs e)
         {
-            document_path = tbx_path.Text;
-            wu_liste = app.Workbooks.Open(@document_path);
-            slist = (Worksheet)wu_liste.Sheets[1];
-            klist = (Worksheet)wu_liste.Sheets[2];
-            slist_range = slist.UsedRange;
-            klist_range = klist.UsedRange;
-            for (int i = 0; !String.Equals(slist_range.Cells[i+3, 2].Value,""); i++)
-            {
-                slist_range.Cells[i+2, 1].Value = i;
-                schueler_id.Add(            slist_range.Cells[i+2, 1].Value);
-                schueler_namen.Add(         slist_range.Cells[i+2, 2].Value);
-                schueler_vornamen.Add(      slist_range.Cells[i+2, 3].Value);
-                schueler_klasse.Add(        slist_range.Cells[i+2, 4].Value);
-                schueler_klassenlehrer.Add( slist_range.Cells[i+2, 5].Value);
-                schueler_erstwahl.Add(      slist_range.Cells[i+2, 6].Value);
-                schueler_zweitwahl.Add(     slist_range.Cells[i+2, 7].Value);
-                schueler_drittwahl.Add(     slist_range.Cells[i+2, 8].Value);
-            }
-            for (int i = 0; !String.Equals(klist_range.Cells[i+2, 1].Value,""); i++)
-            {
-                kurse_id.Add(klist_range.Cells[i + 2, 1].value);
-                kurse_maxpersonen.Add(klist_range.Cells[i + 2, 8].value);
-                kurse_minpersonen.Add(klist_range.Cells[i + 2, 7].value);
-                if (klist_range.Cells[i + 2, 4].Value == 1) kurse_klasse8.Add(true); else kurse_klasse8.Add(false);
-                if (klist_range.Cells[i + 2, 5].Value == 1) kurse_klasse9.Add(true); else kurse_klasse9.Add(false);
-            }
-            wu_liste.Save();
-            wu_liste.Close();
+            dokument_auslesen();
+            myExcel.Quit();
         }
 
         private void dokument_auslesen()
         {
             document_path = tbx_path.Text;
-            wu_liste = app.Workbooks.Open(@document_path);
-            app.Visible = true;
-            slist = (Worksheet)wu_liste.Sheets[1];
-            klist = (Worksheet)wu_liste.Sheets[2];
-            slist_range = slist.UsedRange;
-            klist_range = klist.UsedRange;
-            schueler_id.Clear();
-            schueler_namen.Clear();
-            schueler_vornamen.Clear();
-            schueler_klasse.Clear();
-            schueler_klassenlehrer.Clear();
-            schueler_erstwahl.Clear();
-            schueler_zweitwahl.Clear();
-            schueler_drittwahl.Clear();
-            kurse_id.Clear();
-            kurse_klasse8.Clear();
-            kurse_klasse9.Clear();
-            kurse_maxpersonen.Clear();
-            kurse_minpersonen.Clear();
-            for (int i = 0; !String.Equals(slist_range.Cells[i + 3, 2].Value, ""); i++)
+            try
             {
-                slist_range.Cells[i + 2, 1].Value = i;
-                schueler_id.Add(slist_range.Cells[i + 2, 1].Value);
-                schueler_namen.Add(slist_range.Cells[i + 2, 2].Value);
-                schueler_vornamen.Add(slist_range.Cells[i + 2, 3].Value);
-                schueler_klasse.Add(slist_range.Cells[i + 2, 4].Value);
-                schueler_klassenlehrer.Add(slist_range.Cells[i + 2, 5].Value);
-                schueler_erstwahl.Add(slist_range.Cells[i + 2, 6].Value);
-                schueler_zweitwahl.Add(slist_range.Cells[i + 2, 7].Value);
-                schueler_drittwahl.Add(slist_range.Cells[i + 2, 8].Value);
-            }
-            for (int i = 0; !String.Equals(klist_range.Cells[i + 2, 1].Value, ""); i++)
-            {
-                kurse_id.Add(klist_range.Cells[i + 2, 1].value);
-                kurse_maxpersonen.Add(klist_range.Cells[i + 2, 8].value);
-                kurse_minpersonen.Add(klist_range.Cells[i + 2, 7].value);
-                if (klist_range.Cells[i + 2, 4].Value == 1) kurse_klasse8.Add(true); else kurse_klasse8.Add(false);
-                if (klist_range.Cells[i + 2, 5].Value == 1) kurse_klasse9.Add(true); else kurse_klasse9.Add(false);
-            }
-        }
-        private void kurslisten_erstellen()
-        {
-            List<int> zuloeschende_items = new List<int>();
-            List<int> kurs = new List<int>();
-            dokument_auslesen();
-            for (int kid_counter = 0; kid_counter < kurse_id.Count; kid_counter++)
-            {
-                zuloeschende_items.Clear();
-                kurs.Clear();
-                for (int slist_counter = 0; slist_counter < schueler_id.Count; slist_counter++)
+                wu_liste = myExcel.Workbooks.Open(@document_path);
+                myExcel.Visible = false;
+                slist = (Worksheet)wu_liste.Sheets[1];
+                klist = (Worksheet)wu_liste.Sheets[2];
+                slist_range = slist.UsedRange;
+                klist_range = klist.UsedRange;
+                schueler_id.Clear();
+                schueler_namen.Clear();
+                schueler_vornamen.Clear();
+                schueler_klasse.Clear();
+                schueler_klassenlehrer.Clear();
+                schueler_erstwahl.Clear();
+                schueler_zweitwahl.Clear();
+                schueler_drittwahl.Clear();
+                kurse_id.Clear();
+                kurse_klasse8.Clear();
+                kurse_klasse9.Clear();
+                kurse_maxpersonen.Clear();
+                kurse_minpersonen.Clear();
+                add_item_to_log("Schüler werden ausgelesen");
+                for (int i = 0; !String.Equals(slist_range.Cells[i + 3, 2].Value, null); i++)
                 {
-                    if (String.Equals(kurse_id[kid_counter], slist_range.Cells[slist_counter + 2, 9].Value))
+                    if (i % 50 == 49)
                     {
-
+                        add_item_to_log(Convert.ToString(i + 1) + " Schüler wurden ausgelesen");
                     }
+                    slist_range.Cells[i + 2, 1].Value = i;
+                    schueler_id.Add(i + 2);
+                    schueler_namen.Add(slist_range.Cells[i + 2, 2].Value);
+                    schueler_vornamen.Add(slist_range.Cells[i + 2, 3].Value);
+                    schueler_klasse.Add(slist_range.Cells[i + 2, 4].Value);
+                    schueler_klassenlehrer.Add(slist_range.Cells[i + 2, 5].Value);
+                    schueler_erstwahl.Add(slist_range.Cells[i + 2, 6].Value);
+                    schueler_zweitwahl.Add(slist_range.Cells[i + 2, 7].Value);
+                    schueler_drittwahl.Add(slist_range.Cells[i + 2, 8].Value);
+                }
+                add_item_to_log("Kurse werden ausgelesen");
+                for (int i = 0; !String.Equals(klist_range.Cells[i + 2, 1].Value, null); i++)
+                {
+                    kurse_id.Add(klist_range.Cells[i + 2, 1].value);
+                    kurse_maxpersonen.Add(Convert.ToInt32(klist_range.Cells[i + 2, 8].value));
+                    kurse_minpersonen.Add(Convert.ToInt32(klist_range.Cells[i + 2, 7].value));
+                    if (klist_range.Cells[i + 2, 4].Value == 1) kurse_klasse8.Add(true); else kurse_klasse8.Add(false);
+                    if (klist_range.Cells[i + 2, 5].Value == 1) kurse_klasse9.Add(true); else kurse_klasse9.Add(false);
+                }
+                add_item_to_log("Auslesen vollendet");
+                wu_liste.Save();
+                wu_liste.Close();
+            }
+            catch (System.Runtime.InteropServices.COMException)
+            {
+                MessageBox.Show("Datei existiert nicht\noder andere COMException");
+            }
+            finally
+            {
+                try
+                {
+                    wu_liste.Save();
+                    wu_liste.Close();
+                }
+                catch (Exception)
+                {
                 }
             }
         }
         
-        private void algorithmus()
+        private String[] algorithmus()
         {
             List<int> zuloeschende_items = new List<int>();
             List<int> kurs = new List<int>();
             int[] wahlen = new int[kurse_id.Count];
+            String[] schueler_zuordnungen = new String[schueler_namen.Count];
             var random = new Random();
             #region Erstwahlen werden zugeordnet
+            add_item_to_log("Erstwahlen werden zugeordnet");
             for (int n=0;n<wahlen.Length;n++)
             {
                 wahlen[n] = 0; //Zum sichergehen, dass jedes Item von wahlen 0 ist
@@ -155,7 +142,7 @@ namespace WU_Einteilung
             {
                 for (int kid_counter=0; kid_counter < kurse_id.Count; kid_counter++)
                 {
-                    if (String.Equals(kurse_id[kid_counter], slist_range.Cells[slist_counter + 2, 6].Value))
+                    if (String.Equals(kurse_id[kid_counter], schueler_erstwahl[slist_counter]))
                     {
                         wahlen[kid_counter]++; //die Anzahl an Erstwählern wird in wahlen geschrieben
                     }
@@ -165,11 +152,12 @@ namespace WU_Einteilung
             {
                 if (wahlen[kid_counter] <= kurse_maxpersonen[kid_counter]) //Wenn es weniger oder gleich viele Erstwähler gibt, wie die maximale Größe des Kurses
                 {
+                    add_item_to_log("Jede Erstwahl von " + kurse_id[kid_counter] + " wird zugeordnet");
                     for (int slist_counter = 0; slist_counter < schueler_id.Count; slist_counter++)
                     {
-                        if (String.Equals(kurse_id[kid_counter], slist_range.Cells[schueler_id[slist_counter] + 2, 6].Value))
+                        if (String.Equals(kurse_id[kid_counter], schueler_erstwahl[slist_counter]))
                         {
-                            slist_range.Cells[schueler_id[slist_counter] + 2, 9].Value = kurse_id[kid_counter]; //Jedem Schüler der diesen Kurs erstgewählt hat bekommt diesen zugeordnet
+                            schueler_zuordnungen[slist_counter] = kurse_id[kid_counter]; //Jedem Schüler der diesen Kurs erstgewählt hat bekommt diesen zugeordnet
                             kurse_maxpersonen[kid_counter]--; //Für jeden zugeordneten Schüler wird die maximale Größe verringert, die Variable zählt jetzt die freien Plätze
                             zuloeschende_items.Add(slist_counter); //Jeder zugeordnete Schüler wird in diese Liste geschrieben um ihn später aus den schueler listen zu löschen
                             //Es wird die Position des Schülers in den schueler Listen gespeichert
@@ -181,7 +169,7 @@ namespace WU_Einteilung
                     kurs.Clear();// die Liste kurs wird gelert
                     for (int slist_counter = 0; slist_counter < schueler_id.Count; slist_counter++)
                     {
-                        if (String.Equals(kurse_id[kid_counter], slist_range.Cells[schueler_id[slist_counter] + 2, 6].Value))
+                        if (String.Equals(kurse_id[kid_counter], schueler_erstwahl[slist_counter]))
                         {
                             kurs.Add(slist_counter);//die position der Schüler in den schueler listen wird in kurs geschrieben
                         }
@@ -192,7 +180,7 @@ namespace WU_Einteilung
                     }
                     for (int kurs_counter = 0; kurs_counter < kurs.Count; kurs_counter++)
                     {
-                        slist_range.Cells[schueler_id[kurs[kurs_counter]] + 2, 9].Value = kurse_id[kid_counter]; //Allen Schülern, die noch in kurs drin sind wird der entsprechende Kurs zugeordnet
+                        schueler_zuordnungen[kurs[kurs_counter]] = kurse_id[kid_counter]; //Allen Schülern, die noch in kurs drin sind wird der entsprechende Kurs zugeordnet
                         kurse_maxpersonen[kid_counter]--; //Freie Plätze werden runtergezählt
                         zuloeschende_items.Add(kurs[kurs_counter]);//positionen der Eingeteilten Schüler wird in die Liste geschrieben
                     }
@@ -203,6 +191,7 @@ namespace WU_Einteilung
             #endregion
 
             #region Zweitwahlen werden zugeordnet
+            add_item_to_log("Zweitwahlen werden zugeordnet");
             zuloeschende_items.Clear();
             for (int n = 0; n < wahlen.Length; n++)
             {
@@ -259,6 +248,7 @@ namespace WU_Einteilung
             #endregion
 
             #region Drittwahlen werden zugeordnet
+            add_item_to_log("Drittwahlen werden zugeordnet");
             zuloeschende_items.Clear();
             for (int n = 0; n < wahlen.Length; n++)
             {
@@ -314,6 +304,8 @@ namespace WU_Einteilung
             schueler_lists_reinigen(zuloeschende_items);
             #endregion
 
+            return schueler_zuordnungen;
+
         }
 
         private void schueler_lists_reinigen(List<int> zuloeschende_items)
@@ -328,6 +320,20 @@ namespace WU_Einteilung
                 schueler_erstwahl.Remove(schueler_erstwahl[zuloeschende_items[n] - n]);
                 schueler_zweitwahl.Remove(schueler_zweitwahl[zuloeschende_items[n] - n]);
                 schueler_drittwahl.Remove(schueler_drittwahl[zuloeschende_items[n] - n]);
+            }
+        }
+
+        private void add_item_to_log(String logmsg)
+        {
+            lbx_log.Items.Add(logmsg);
+
+            //The max number of items that the listbox can display at a time
+            int NumberOfItems = lbx_log.ClientSize.Height / lbx_log.ItemHeight;
+
+            if (lbx_log.TopIndex == lbx_log.Items.Count - NumberOfItems - 1)
+            {
+                //The item at the top when you can just see the bottom item
+                lbx_log.TopIndex = lbx_log.Items.Count - NumberOfItems + 1;
             }
         }
     }
