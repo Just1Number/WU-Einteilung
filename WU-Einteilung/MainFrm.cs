@@ -328,17 +328,39 @@ namespace WU_Einteilung
             }
         }
 
-        private void add_item_to_log(String logmsg)
+        private void add_item_to_log(object logmsg)
         {
-            lbx_log.Items.Add(logmsg);
+            DateTime currentDate = DateTime.Now;
+            string dtHour, dtMinute, dtSecond;
+            dtHour = withzero(currentDate.Hour);
+            dtMinute = withzero(currentDate.Minute);
+            dtSecond = withzero(currentDate.Second);
 
-            //The max number of items that the listbox can display at a time
-            int NumberOfItems = lbx_log.ClientSize.Height / lbx_log.ItemHeight;
-
-            if (lbx_log.TopIndex == lbx_log.Items.Count - NumberOfItems - 1)
+            if (this.InvokeRequired) this.Invoke(new Action<object>(this.add_item_to_log), logmsg);
+            else
             {
-                //The item at the top when you can just see the bottom item
-                lbx_log.TopIndex = lbx_log.Items.Count - NumberOfItems + 1;
+                lbx_log.Items.Add("[" + dtHour + ":" + dtMinute + ":" + dtSecond + "] " + logmsg);
+
+                //The max number of items that the listbox can display at a time
+                int NumberOfItems = lbx_log.ClientSize.Height / lbx_log.ItemHeight;
+
+                if (lbx_log.TopIndex == lbx_log.Items.Count - NumberOfItems - 1)
+                {
+                    //The item at the top when you can just see the bottom item
+                    lbx_log.TopIndex = lbx_log.Items.Count - NumberOfItems + 1;
+                }
+            }
+        }
+
+        private string withzero(int number)
+        {
+            if (number < 10)
+            {
+                return "0" + Convert.ToString(number);
+            }
+            else
+            {
+                return Convert.ToString(number);
             }
         }
     }
