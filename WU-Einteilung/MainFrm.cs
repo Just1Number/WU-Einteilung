@@ -57,9 +57,12 @@ namespace WU_Einteilung
         private void dokument_auslesen()
         {
             document_path = tbx_path.Text;
+            int schueler_anzahl = new int();
             try
             {
+                // Pfad wird ausgelesen
                 wu_liste = myExcel.Workbooks.Open(@document_path);
+                // Variablen init
                 myExcel.Visible = false;
                 slist = (Worksheet)wu_liste.Sheets[1];
                 klist = (Worksheet)wu_liste.Sheets[2];
@@ -94,7 +97,9 @@ namespace WU_Einteilung
                     schueler_erstwahl.Add(slist_range.Cells[i + 2, 6].Value);
                     schueler_zweitwahl.Add(slist_range.Cells[i + 2, 7].Value);
                     schueler_drittwahl.Add(slist_range.Cells[i + 2, 8].Value);
+                    schueler_anzahl = i;
                 }
+                add_item_to_log("Alle " + Convert.ToString(schueler_anzahl + 1) + " Schüler wurden ausgelesen");
                 add_item_to_log("Kurse werden ausgelesen");
                 for (int i = 0; !String.Equals(klist_range.Cells[i + 2, 1].Value, null); i++)
                 {
@@ -176,13 +181,13 @@ namespace WU_Einteilung
                     }
                     for (int n = 0; n <= wahlen[kid_counter] - kurse_maxpersonen[kid_counter]; n++)
                     {
-                        kurs.Remove(kurs[random.Next(kurs.Count)]);//es werden überschüssige Schüler zufällig aus kurs gelöscht
+                        kurs.Remove(kurs[random.Next(kurs.Count)]); //es werden überschüssige Schüler zufällig aus kurs gelöscht
                     }
                     for (int kurs_counter = 0; kurs_counter < kurs.Count; kurs_counter++)
                     {
                         schueler_zuordnungen[kurs[kurs_counter]] = kurse_id[kid_counter]; //Allen Schülern, die noch in kurs drin sind wird der entsprechende Kurs zugeordnet
                         kurse_maxpersonen[kid_counter]--; //Freie Plätze werden runtergezählt
-                        zuloeschende_items.Add(kurs[kurs_counter]);//positionen der Eingeteilten Schüler wird in die Liste geschrieben
+                        zuloeschende_items.Add(kurs[kurs_counter]); //positionen der Eingeteilten Schüler wird in die Liste geschrieben
                     }
                 }
             }
