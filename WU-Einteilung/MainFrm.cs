@@ -201,7 +201,7 @@ namespace WU_Einteilung
             {
                 for (int kid_counter = 0; kid_counter < kurse_id.Count; kid_counter++)
                 {
-                    if (String.Equals(kurse_id[kid_counter], slist_range.Cells[schueler_id[slist_counter] + 2, 7].Value))
+                    if (String.Equals(kurse_id[kid_counter], schueler_zweitwahl[slist_counter]))
                     {
                         wahlen[kid_counter]++; //wahlen wird neu gefüllt, diesmal mit der kleineren schueler liste und den zweitwahlen
                     }
@@ -213,9 +213,9 @@ namespace WU_Einteilung
                 {
                     for (int slist_counter = 0; slist_counter < schueler_id.Count; slist_counter++)
                     {
-                        if (String.Equals(kurse_id[kid_counter], slist_range.Cells[schueler_id[slist_counter] + 2, 7].Value))
+                        if (String.Equals(kurse_id[kid_counter], schueler_zweitwahl[slist_counter]))
                         {
-                            slist_range.Cells[schueler_id[slist_counter] + 2, 9].Value = kurse_id[kid_counter]; //wenn eine zweitwahl weniger getätigt wurde als freie Plätze da sind werden alle die diese Zweitwahl getätigt haben zugeordnet
+                            schueler_zuordnungen[slist_counter] = kurse_id[kid_counter]; //wenn eine zweitwahl weniger getätigt wurde als freie Plätze da sind werden alle die diese Zweitwahl getätigt haben zugeordnet
                             kurse_maxpersonen[kid_counter]--;
                             zuloeschende_items.Add(slist_counter);
                         }
@@ -226,7 +226,7 @@ namespace WU_Einteilung
                     kurs.Clear();
                     for (int slist_counter = 0; slist_counter < schueler_id.Count; slist_counter++)
                     {
-                        if (String.Equals(kurse_id[kid_counter], slist_range.Cells[schueler_id[slist_counter] + 2, 7].Value))
+                        if (String.Equals(kurse_id[kid_counter], schueler_zweitwahl[slist_counter]))
                         {
                             kurs.Add(slist_counter);
                         }
@@ -237,7 +237,7 @@ namespace WU_Einteilung
                     }
                     for (int kurs_counter = 0; kurs_counter < kurs.Count; kurs_counter++)
                     {
-                        slist_range.Cells[schueler_id[kurs[kurs_counter]] + 2, 9].Value = kurse_id[kid_counter];
+                        schueler_zweitwahl[kurs[kurs_counter]] = kurse_id[kid_counter];
                         kurse_maxpersonen[kid_counter]--;
                         zuloeschende_items.Add(kurs[kurs_counter]);
                     }
