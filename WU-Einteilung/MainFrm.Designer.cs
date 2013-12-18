@@ -61,6 +61,7 @@
             this.btn_list.TabIndex = 2;
             this.btn_list.Text = "Kurslisten erstellen";
             this.btn_list.UseVisualStyleBackColor = true;
+            this.btn_list.Click += new System.EventHandler(this.btn_list_Click);
             // 
             // lbl_path
             // 

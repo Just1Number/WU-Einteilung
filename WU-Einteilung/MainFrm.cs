@@ -54,6 +54,11 @@ namespace WU_Einteilung
             myExcel.Quit();
         }
 
+        private void btn_list_Click(object sender, EventArgs e)
+        {
+            String[] myArray = algorithmus();
+        }
+
         private void dokument_auslesen()
         {
             document_path = tbx_path.Text;
@@ -263,7 +268,7 @@ namespace WU_Einteilung
             {
                 for (int kid_counter = 0; kid_counter < kurse_id.Count; kid_counter++)
                 {
-                    if (String.Equals(kurse_id[kid_counter], slist_range.Cells[schueler_id[slist_counter] + 2, 8].Value))
+                    if (String.Equals(kurse_id[kid_counter], schueler_drittwahl[slist_counter]))
                     {
                         wahlen[kid_counter]++;
                     }
@@ -275,9 +280,9 @@ namespace WU_Einteilung
                 {
                     for (int slist_counter = 0; slist_counter < schueler_id.Count; slist_counter++)
                     {
-                        if (String.Equals(kurse_id[kid_counter], slist_range.Cells[schueler_id[slist_counter] + 2, 8].Value))
+                        if (String.Equals(kurse_id[kid_counter], schueler_drittwahl[slist_counter]))
                         {
-                            slist_range.Cells[schueler_id[slist_counter] + 2, 9].Value = kurse_id[kid_counter];
+                            schueler_zuordnungen[slist_counter] = kurse_id[kid_counter];
                             kurse_maxpersonen[kid_counter]--;
                             zuloeschende_items.Add(slist_counter);
                         }
@@ -288,7 +293,7 @@ namespace WU_Einteilung
                     kurs.Clear();
                     for (int slist_counter = 0; slist_counter < schueler_id.Count; slist_counter++)
                     {
-                        if (String.Equals(kurse_id[kid_counter], slist_range.Cells[schueler_id[slist_counter] + 2, 8].Value))
+                        if (String.Equals(kurse_id[kid_counter], schueler_drittwahl[slist_counter]))
                         {
                             kurs.Add(slist_counter);
                         }
@@ -299,7 +304,7 @@ namespace WU_Einteilung
                     }
                     for (int kurs_counter = 0; kurs_counter < kurs.Count; kurs_counter++)
                     {
-                        slist_range.Cells[schueler_id[kurs[kurs_counter]] + 2, 9].Value = kurse_id[kid_counter];
+                        schueler_zuordnungen[kurs[kurs_counter]] = kurse_id[kid_counter];
                         kurse_maxpersonen[kid_counter]--;
                         zuloeschende_items.Add(kurs[kurs_counter]);
                     }
@@ -363,5 +368,6 @@ namespace WU_Einteilung
                 return Convert.ToString(number);
             }
         }
+
     }
 }
