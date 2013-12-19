@@ -229,6 +229,7 @@ namespace WU_Einteilung
                 }
                 else if (wahlen[kid_counter] > kurse_maxpersonen[kid_counter]) //Wenn es mehr Erstwähler gibt, als der Kurs fassen kann sollen überschüssige Schüler zufällig ausgewählt werden
                 {
+                    add_item_to_log("Nicht jede Erstwahl von " + kurse_id[kid_counter] + " kann zugeordnet werden");
                     kurs.Clear();// die Liste kurs wird gelert
                     for (int slist_counter = 0; slist_counter < schueler_id.Count; slist_counter++)
                     {
@@ -239,7 +240,10 @@ namespace WU_Einteilung
                     }
                     for (int n = 0; n <= wahlen[kid_counter] - kurse_maxpersonen[kid_counter]; n++)
                     {
-                        kurs.Remove(kurs[random.Next(kurs.Count)]); //es werden überschüssige Schüler zufällig aus kurs gelöscht
+                        if (kurs.Count != 0)
+                        {
+                            kurs.Remove(kurs[random.Next(kurs.Count)]);//es werden überschüssige Schüler zufällig aus kurs gelöscht
+                        } 
                     }
                     for (int kurs_counter = 0; kurs_counter < kurs.Count; kurs_counter++)
                     {
@@ -287,6 +291,7 @@ namespace WU_Einteilung
                 }
                 else if (wahlen[kid_counter] > kurse_maxpersonen[kid_counter])
                 {
+                    add_item_to_log("Nicht jede Zweitwahl von " + kurse_id[kid_counter] + " kann zugeordnet werden");
                     kurs.Clear();
                     for (int slist_counter = 0; slist_counter < schueler_id.Count; slist_counter++)
                     {
@@ -297,7 +302,10 @@ namespace WU_Einteilung
                     }
                     for (int n = 0; n <= wahlen[kid_counter] - kurse_maxpersonen[kid_counter]; n++)
                     {
-                        kurs.Remove(kurs[random.Next(kurs.Count)]);
+                        if (kurs.Count != 0)
+                        {
+                            kurs.Remove(kurs[random.Next(kurs.Count)]);
+                        }
                     }
                     for (int kurs_counter = 0; kurs_counter < kurs.Count; kurs_counter++)
                     {
@@ -356,7 +364,10 @@ namespace WU_Einteilung
                     }
                     for (int n = 0; n <= wahlen[kid_counter] - kurse_maxpersonen[kid_counter]; n++)
                     {
-                        kurs.Remove(kurs[random.Next(kurs.Count)]);
+                        if (kurs.Count != 0) 
+                        {
+                            kurs.Remove(kurs[random.Next(kurs.Count)]);
+                        }
                     }
                     for (int kurs_counter = 0; kurs_counter < kurs.Count; kurs_counter++)
                     {
