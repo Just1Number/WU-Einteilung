@@ -52,11 +52,12 @@ namespace WU_Einteilung
         {
             dokument_auslesen();
             myExcel.Quit();
+            dokument_beschreiben(algorithmus());
         }
 
         private void btn_list_Click(object sender, EventArgs e)
         {
-            dokument_beschreiben(algorithmus());
+            
         }
 
         private void dokument_auslesen()
@@ -393,10 +394,10 @@ namespace WU_Einteilung
         {
             for (int n = 0; n < zuloeschende_items.Count; n++)
             {
-                schueler_id.Remove(schueler_id[zuloeschende_items[n] - n]);
-                schueler_erstwahl.Remove(schueler_erstwahl[zuloeschende_items[n] - n]);
-                schueler_zweitwahl.Remove(schueler_zweitwahl[zuloeschende_items[n] - n]);
-                schueler_drittwahl.Remove(schueler_drittwahl[zuloeschende_items[n] - n]);
+                schueler_id.RemoveAt(zuloeschende_items[n] - n);
+                schueler_erstwahl.RemoveAt(zuloeschende_items[n] - n);
+                schueler_zweitwahl.RemoveAt(zuloeschende_items[n] - n);
+                schueler_drittwahl.RemoveAt(zuloeschende_items[n] - n);
             }
         }
 
