@@ -134,6 +134,11 @@ namespace WU_Einteilung
                 }
             }
         }
+
+        private void dokument_beschreiben(String[] zuordnungen)
+        {
+            document_path = tbx_path.Text;
+        }
         
         private String[] algorithmus()
         {
