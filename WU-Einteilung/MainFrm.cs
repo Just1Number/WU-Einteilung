@@ -215,7 +215,7 @@ namespace WU_Einteilung
             {
                 if (wahlen[kid_counter] <= kurse_maxpersonen[kid_counter]) //Wenn es weniger oder gleich viele Erstwähler gibt, wie die maximale Größe des Kurses
                 {
-                    add_item_to_log("Jede Erstwahl von " + kurse_id[kid_counter] + " wird zugeordnet");
+                    if (wahlen[kid_counter] != 0) add_item_to_log("Jede Erstwahl von " + kurse_id[kid_counter] + " wird zugeordnet");
                     for (int slist_counter = 0; slist_counter < schueler_id.Count; slist_counter++)
                     {
                         if (String.Equals(kurse_id[kid_counter], schueler_erstwahl[slist_counter]))
@@ -278,7 +278,7 @@ namespace WU_Einteilung
             {
                 if (wahlen[kid_counter] <= kurse_maxpersonen[kid_counter])
                 {
-                    add_item_to_log("Jede übrig gebliebene Zweitwahl von " + kurse_id[kid_counter] + " wird zugeordnet");
+                    if (wahlen[kid_counter] != 0) add_item_to_log("Jede übrig gebliebene Zweitwahl von " + kurse_id[kid_counter] + " wird zugeordnet");
                     for (int slist_counter = 0; slist_counter < schueler_id.Count; slist_counter++)
                     {
                         if (String.Equals(kurse_id[kid_counter], schueler_zweitwahl[slist_counter]))
@@ -340,7 +340,7 @@ namespace WU_Einteilung
             {
                 if (wahlen[kid_counter] <= kurse_maxpersonen[kid_counter])
                 {
-                    add_item_to_log("Jede übrig gebliebene Drittwahl von " + kurse_id[kid_counter] + " wird zugeordnet");
+                    if (wahlen[kid_counter] != 0) add_item_to_log("Jede übrig gebliebene Drittwahl von " + kurse_id[kid_counter] + " wird zugeordnet");
                     for (int slist_counter = 0; slist_counter < schueler_id.Count; slist_counter++)
                     {
                         if (String.Equals(kurse_id[kid_counter], schueler_drittwahl[slist_counter]))
