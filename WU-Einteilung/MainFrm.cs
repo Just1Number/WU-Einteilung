@@ -138,6 +138,24 @@ namespace WU_Einteilung
         private void dokument_beschreiben(String[] zuordnungen)
         {
             document_path = tbx_path.Text;
+            try
+            {
+            }
+            catch (System.Runtime.InteropServices.COMException)
+            {
+                MessageBox.Show("Datei existiert nicht\noder andere COMException");
+            }
+            finally
+            {
+                try
+                {
+                    wu_liste.Save();
+                    wu_liste.Close();
+                }
+                catch (Exception)
+                {
+                }
+            }
         }
         
         private String[] algorithmus()
