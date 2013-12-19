@@ -164,12 +164,16 @@ namespace WU_Einteilung
                     if (zuordnungen[i] != null)
                     {
                         slist_range.Cells[i + 2, 9].Value = zuordnungen[i];
+                        slist_range.Cells[i + 2, 10].Value = null;
                     }
                     else
                     {
+                        slist_range.Cells[i + 2, 9].Value = null;
                         slist_range.Cells[i + 2, 10].Value = "!";
                     }
                 }
+                wu_liste.Save();
+                wu_liste.Close();
             }
             catch (System.Runtime.InteropServices.COMException)
             {
