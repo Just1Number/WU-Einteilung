@@ -37,7 +37,7 @@
             // 
             // btn_zon
             // 
-            this.btn_zon.Location = new System.Drawing.Point(12, 108);
+            this.btn_zon.Location = new System.Drawing.Point(12, 220);
             this.btn_zon.Name = "btn_zon";
             this.btn_zon.Size = new System.Drawing.Size(234, 48);
             this.btn_zon.TabIndex = 0;
@@ -55,7 +55,7 @@
             // 
             // btn_list
             // 
-            this.btn_list.Location = new System.Drawing.Point(286, 108);
+            this.btn_list.Location = new System.Drawing.Point(286, 220);
             this.btn_list.Name = "btn_list";
             this.btn_list.Size = new System.Drawing.Size(234, 48);
             this.btn_list.TabIndex = 2;
@@ -76,14 +76,14 @@
             // 
             this.lbx_log.Location = new System.Drawing.Point(15, 40);
             this.lbx_log.Name = "lbx_log";
-            this.lbx_log.Size = new System.Drawing.Size(505, 56);
+            this.lbx_log.Size = new System.Drawing.Size(505, 173);
             this.lbx_log.TabIndex = 4;
             // 
             // MainFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(532, 168);
+            this.ClientSize = new System.Drawing.Size(532, 280);
             this.Controls.Add(this.lbx_log);
             this.Controls.Add(this.lbl_path);
             this.Controls.Add(this.btn_list);
