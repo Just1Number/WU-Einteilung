@@ -147,7 +147,14 @@ namespace WU_Einteilung
                 add_item_to_log("Zuordnungen werden in Tabelle eingetragen");
                 for (int i = 0; i < zuordnungen.Length; i++)
                 {
-                    slist_range.Cells[i + 2, 2].Value = zuordnungen[i];
+                    if (zuordnungen[i] != null)
+                    {
+                        slist_range.Cells[i + 2, 9].Value = zuordnungen[i];
+                    }
+                    else
+                    {
+                        slist_range.Cells[i + 2, 10].Value = "!";
+                    }
                 }
             }
             catch (System.Runtime.InteropServices.COMException)
