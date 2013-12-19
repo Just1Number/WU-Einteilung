@@ -140,6 +140,15 @@ namespace WU_Einteilung
             document_path = tbx_path.Text;
             try
             {
+                wu_liste = myExcel.Workbooks.Open(@document_path);
+                myExcel.Visible = false;
+                slist = (Worksheet)wu_liste.Sheets[1];
+                slist_range = slist.UsedRange;
+                add_item_to_log("Zuordnungen werden in Tabelle eingetragen");
+                for (int i = 0; i < zuordnungen.Length; i++)
+                {
+                    slist_range.Cells[i + 2, 2].Value = zuordnungen[i];
+                }
             }
             catch (System.Runtime.InteropServices.COMException)
             {
