@@ -224,7 +224,7 @@ namespace WU_Einteilung
                     {
                         if (String.Equals(kurse_id[kid_counter], schueler_erstwahl[slist_counter]))
                         {
-                            schueler_zuordnungen[slist_counter] = kurse_id[kid_counter]; //Jedem Schüler der diesen Kurs erstgewählt hat bekommt diesen zugeordnet
+                            schueler_zuordnungen[schueler_id[slist_counter] - 2] = kurse_id[kid_counter]; //Jedem Schüler der diesen Kurs erstgewählt hat bekommt diesen zugeordnet
                             kurse_maxpersonen[kid_counter]--; //Für jeden zugeordneten Schüler wird die maximale Größe verringert, die Variable zählt jetzt die freien Plätze
                             zuloeschende_items.Add(slist_counter); //Jeder zugeordnete Schüler wird in diese Liste geschrieben um ihn später aus den schueler listen zu löschen
                             //Es wird die Position des Schülers in den schueler Listen gespeichert
@@ -251,7 +251,7 @@ namespace WU_Einteilung
                     }
                     for (int kurs_counter = 0; kurs_counter < kurs.Count; kurs_counter++)
                     {
-                        schueler_zuordnungen[kurs[kurs_counter]] = kurse_id[kid_counter]; //Allen Schülern, die noch in kurs drin sind wird der entsprechende Kurs zugeordnet
+                        schueler_zuordnungen[schueler_id[kurs[kurs_counter]] - 2] = kurse_id[kid_counter]; //Allen Schülern, die noch in kurs drin sind wird der entsprechende Kurs zugeordnet
                         kurse_maxpersonen[kid_counter]--; //Freie Plätze werden runtergezählt
                         zuloeschende_items.Add(kurs[kurs_counter]); //positionen der Eingeteilten Schüler wird in die Liste geschrieben
                     }
@@ -287,7 +287,7 @@ namespace WU_Einteilung
                     {
                         if (String.Equals(kurse_id[kid_counter], schueler_zweitwahl[slist_counter]))
                         {
-                            schueler_zuordnungen[slist_counter] = kurse_id[kid_counter]; //wenn eine zweitwahl weniger getätigt wurde als freie Plätze da sind werden alle die diese Zweitwahl getätigt haben zugeordnet
+                            schueler_zuordnungen[schueler_id[slist_counter] - 2] = kurse_id[kid_counter]; //wenn eine zweitwahl weniger getätigt wurde als freie Plätze da sind werden alle die diese Zweitwahl getätigt haben zugeordnet
                             kurse_maxpersonen[kid_counter]--;
                             zuloeschende_items.Add(slist_counter);
                         }
@@ -313,7 +313,7 @@ namespace WU_Einteilung
                     }
                     for (int kurs_counter = 0; kurs_counter < kurs.Count; kurs_counter++)
                     {
-                        schueler_zweitwahl[kurs[kurs_counter]] = kurse_id[kid_counter];
+                        schueler_zuordnungen[schueler_id[kurs[kurs_counter]] - 2] = kurse_id[kid_counter];
                         kurse_maxpersonen[kid_counter]--;
                         zuloeschende_items.Add(kurs[kurs_counter]);
                     }
@@ -349,7 +349,7 @@ namespace WU_Einteilung
                     {
                         if (String.Equals(kurse_id[kid_counter], schueler_drittwahl[slist_counter]))
                         {
-                            schueler_zuordnungen[slist_counter] = kurse_id[kid_counter];
+                            schueler_zuordnungen[schueler_id[slist_counter] - 2] = kurse_id[kid_counter];
                             kurse_maxpersonen[kid_counter]--;
                             zuloeschende_items.Add(slist_counter);
                         }
@@ -375,7 +375,7 @@ namespace WU_Einteilung
                     }
                     for (int kurs_counter = 0; kurs_counter < kurs.Count; kurs_counter++)
                     {
-                        schueler_zuordnungen[kurs[kurs_counter]] = kurse_id[kid_counter];
+                        schueler_zuordnungen[schueler_id[kurs[kurs_counter]] - 2] = kurse_id[kid_counter];
                         kurse_maxpersonen[kid_counter]--;
                         zuloeschende_items.Add(kurs[kurs_counter]);
                     }
