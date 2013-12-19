@@ -242,7 +242,7 @@ namespace WU_Einteilung
                             kurs.Add(slist_counter);//die position der Schüler in den schueler listen wird in kurs geschrieben
                         }
                     }
-                    for (int n = 0; n <= wahlen[kid_counter] - kurse_maxpersonen[kid_counter]; n++)
+                    for (int n = 0; n < wahlen[kid_counter] - kurse_maxpersonen[kid_counter]; n++)
                     {
                         if (kurs.Count != 0)
                         {
@@ -304,7 +304,7 @@ namespace WU_Einteilung
                             kurs.Add(slist_counter);
                         }
                     }
-                    for (int n = 0; n <= wahlen[kid_counter] - kurse_maxpersonen[kid_counter]; n++)
+                    for (int n = 0; n < wahlen[kid_counter] - kurse_maxpersonen[kid_counter]; n++)
                     {
                         if (kurs.Count != 0)
                         {
@@ -366,7 +366,7 @@ namespace WU_Einteilung
                             kurs.Add(slist_counter);
                         }
                     }
-                    for (int n = 0; n <= wahlen[kid_counter] - kurse_maxpersonen[kid_counter]; n++)
+                    for (int n = 0; n < wahlen[kid_counter] - kurse_maxpersonen[kid_counter]; n++)
                     {
                         if (kurs.Count != 0) 
                         {
