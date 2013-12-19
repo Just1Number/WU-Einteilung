@@ -87,7 +87,7 @@ namespace WU_Einteilung
                 kurse_maxpersonen.Clear();
                 kurse_minpersonen.Clear();
                 add_item_to_log("Schüler werden ausgelesen");
-                for (int i = 0; !String.Equals(slist_range.Cells[i + 3, 2].Value, null); i++)
+                for (int i = 0; !String.Equals(slist_range.Cells[i + 2, 2].Value, null); i++)
                 {
                     if (i % 50 == 49)
                     {
@@ -159,7 +159,7 @@ namespace WU_Einteilung
                 slist = (Worksheet)wu_liste.Sheets[1];
                 slist_range = slist.UsedRange;
                 add_item_to_log("Zuordnungen werden in Tabelle eingetragen");
-                for (int i = 0; i <= zuordnungen.Length; i++)
+                for (int i = 0; i < zuordnungen.Length; i++)
                 {
                     if (zuordnungen[i] != null)
                     {
@@ -274,6 +274,7 @@ namespace WU_Einteilung
             {
                 if (wahlen[kid_counter] <= kurse_maxpersonen[kid_counter])
                 {
+                    add_item_to_log("Jede übrig gebliebene Zweitwahl von " + kurse_id[kid_counter] + " wird zugeordnet");
                     for (int slist_counter = 0; slist_counter < schueler_id.Count; slist_counter++)
                     {
                         if (String.Equals(kurse_id[kid_counter], schueler_zweitwahl[slist_counter]))
@@ -331,6 +332,7 @@ namespace WU_Einteilung
             {
                 if (wahlen[kid_counter] <= kurse_maxpersonen[kid_counter])
                 {
+                    add_item_to_log("Jede übrig gebliebene Drittwahl von " + kurse_id[kid_counter] + " wird zugeordnet");
                     for (int slist_counter = 0; slist_counter < schueler_id.Count; slist_counter++)
                     {
                         if (String.Equals(kurse_id[kid_counter], schueler_drittwahl[slist_counter]))
@@ -343,6 +345,7 @@ namespace WU_Einteilung
                 }
                 else if (wahlen[kid_counter] > kurse_maxpersonen[kid_counter])
                 {
+                    add_item_to_log("Nicht jede Drittwahl von " + kurse_id[kid_counter] + " kann zugeordnet werden");
                     kurs.Clear();
                     for (int slist_counter = 0; slist_counter < schueler_id.Count; slist_counter++)
                     {
@@ -376,10 +379,6 @@ namespace WU_Einteilung
             for (int n = 0; n < zuloeschende_items.Count; n++)
             {
                 schueler_id.Remove(schueler_id[zuloeschende_items[n] - n]);
-                schueler_namen.Remove(schueler_namen[zuloeschende_items[n] - n]);
-                schueler_vornamen.Remove(schueler_vornamen[zuloeschende_items[n] - n]);
-                schueler_klasse.Remove(schueler_klasse[zuloeschende_items[n] - n]);
-                schueler_klassenlehrer.Remove(schueler_klassenlehrer[zuloeschende_items[n] - n]);
                 schueler_erstwahl.Remove(schueler_erstwahl[zuloeschende_items[n] - n]);
                 schueler_zweitwahl.Remove(schueler_zweitwahl[zuloeschende_items[n] - n]);
                 schueler_drittwahl.Remove(schueler_drittwahl[zuloeschende_items[n] - n]);
