@@ -95,13 +95,27 @@ namespace WU_Einteilung
                     }
                     slist_range.Cells[i + 2, 1].Value = i;
                     schueler_id.Add(i + 2);
-                    schueler_namen.Add(slist_range.Cells[i + 2, 2].Value);
-                    schueler_vornamen.Add(slist_range.Cells[i + 2, 3].Value);
-                    schueler_klasse.Add(slist_range.Cells[i + 2, 4].Value);
-                    schueler_klassenlehrer.Add(slist_range.Cells[i + 2, 5].Value);
-                    schueler_erstwahl.Add(slist_range.Cells[i + 2, 6].Value);
-                    schueler_zweitwahl.Add(slist_range.Cells[i + 2, 7].Value);
-                    schueler_drittwahl.Add(slist_range.Cells[i + 2, 8].Value);
+                    String name = slist_range.Cells[i + 2, 2].Value;
+                    String vorname = slist_range.Cells[i + 2, 3].Value;
+                    String klasse = slist_range.Cells[i + 2, 4].Value;
+                    String klassenlehrer = slist_range.Cells[i + 2, 5].Value;
+                    String erstwahl = slist_range.Cells[i + 2, 6].Value;
+                    String zweitwahl = slist_range.Cells[i + 2, 7].Value;
+                    String drittwahl = slist_range.Cells[i + 2, 8].Value;
+                    if (!String.IsNullOrWhiteSpace(name)) schueler_namen.Add(name.Trim());
+                    else schueler_namen.Add(null);
+                    if (!String.IsNullOrWhiteSpace(vorname)) schueler_vornamen.Add(vorname.Trim());
+                    else schueler_vornamen.Add(null);
+                    if (!String.IsNullOrWhiteSpace(klasse)) schueler_klasse.Add(klasse.Trim());
+                    else schueler_klasse.Add(null);
+                    if (!String.IsNullOrWhiteSpace(klassenlehrer)) schueler_klassenlehrer.Add(klassenlehrer.Trim());
+                    else schueler_klassenlehrer.Add(null);
+                    if (!String.IsNullOrWhiteSpace(erstwahl)) schueler_erstwahl.Add(erstwahl.Trim());
+                    else schueler_erstwahl.Add(null);
+                    if (!String.IsNullOrWhiteSpace(zweitwahl)) schueler_zweitwahl.Add(zweitwahl.Trim());
+                    else schueler_zweitwahl.Add(null);
+                    if (!String.IsNullOrWhiteSpace(drittwahl)) schueler_drittwahl.Add(drittwahl.Trim());
+                    else schueler_drittwahl.Add(null);
                     schueler_anzahl = i;
                 }
                 add_item_to_log("Alle " + Convert.ToString(schueler_anzahl + 1) + " Schüler wurden ausgelesen");
@@ -145,7 +159,7 @@ namespace WU_Einteilung
                 slist = (Worksheet)wu_liste.Sheets[1];
                 slist_range = slist.UsedRange;
                 add_item_to_log("Zuordnungen werden in Tabelle eingetragen");
-                for (int i = 0; i < zuordnungen.Length; i++)
+                for (int i = 0; i <= zuordnungen.Length; i++)
                 {
                     if (zuordnungen[i] != null)
                     {
