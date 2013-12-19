@@ -56,7 +56,7 @@ namespace WU_Einteilung
 
         private void btn_list_Click(object sender, EventArgs e)
         {
-            String[] myArray = algorithmus();
+            dokument_beschreiben(algorithmus());
         }
 
         private void dokument_auslesen()
