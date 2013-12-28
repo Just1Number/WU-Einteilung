@@ -38,6 +38,18 @@ namespace WU_Einteilung
         private List<bool> kurse_klasse8 = new List<bool>();
         private List<bool> kurse_klasse9 = new List<bool>();
         #endregion
+
+        #region Konstanten
+        private int SPALTE_ID;
+        private int SPALTE_NAME;
+        private int SPALTE_VORNAME;
+        private int SPALTE_KLASSE;
+        private int SPALTE_KLASSENLEHRER;
+        private int SPALTE_ERSTWAHL;
+        private int SPALTE_ZWEITWAHL;
+        private int SPALTE_DRITTWAHL;
+        private int SPALTE_ZUORDNUNG;
+        #endregion
         public MainFrm()
         {
             InitializeComponent();
