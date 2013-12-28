@@ -33,6 +33,7 @@
             this.btn_list = new System.Windows.Forms.Button();
             this.lbl_path = new System.Windows.Forms.Label();
             this.lbx_log = new System.Windows.Forms.ListBox();
+            this.btn_files = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btn_zon
@@ -49,7 +50,7 @@
             // 
             this.tbx_path.Location = new System.Drawing.Point(112, 12);
             this.tbx_path.Name = "tbx_path";
-            this.tbx_path.Size = new System.Drawing.Size(408, 20);
+            this.tbx_path.Size = new System.Drawing.Size(373, 20);
             this.tbx_path.TabIndex = 1;
             this.tbx_path.Text = "Pfad";
             // 
@@ -79,11 +80,22 @@
             this.lbx_log.Size = new System.Drawing.Size(505, 173);
             this.lbx_log.TabIndex = 4;
             // 
+            // btn_files
+            // 
+            this.btn_files.Image = global::WU_Einteilung.Properties.Resources.folder_closed_white;
+            this.btn_files.Location = new System.Drawing.Point(491, 10);
+            this.btn_files.Name = "btn_files";
+            this.btn_files.Size = new System.Drawing.Size(29, 22);
+            this.btn_files.TabIndex = 5;
+            this.btn_files.UseVisualStyleBackColor = true;
+            this.btn_files.Click += new System.EventHandler(this.btn_files_Click);
+            // 
             // MainFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(532, 280);
+            this.Controls.Add(this.btn_files);
             this.Controls.Add(this.lbx_log);
             this.Controls.Add(this.lbl_path);
             this.Controls.Add(this.btn_list);
@@ -104,6 +116,7 @@
         private System.Windows.Forms.Button btn_list;
         private System.Windows.Forms.Label lbl_path;
         private System.Windows.Forms.ListBox lbx_log;
+        private System.Windows.Forms.Button btn_files;
     }
 }
 

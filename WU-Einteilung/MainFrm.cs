@@ -437,5 +437,16 @@ namespace WU_Einteilung
             }
         }
 
+        private void btn_files_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                tbx_path.Text = ofd.FileName;
+                string safeFilePath = ofd.SafeFileName;
+            }
+        }
+
     }
 }
