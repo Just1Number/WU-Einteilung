@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Collections;
-
 namespace WU_Einteilung
 {
     public partial class MainFrm : Form
@@ -40,15 +39,15 @@ namespace WU_Einteilung
         #endregion
 
         #region Konstanten
-        private int SPALTE_ID;
-        private int SPALTE_NAME;
-        private int SPALTE_VORNAME;
-        private int SPALTE_KLASSE;
-        private int SPALTE_KLASSENLEHRER;
-        private int SPALTE_ERSTWAHL;
-        private int SPALTE_ZWEITWAHL;
-        private int SPALTE_DRITTWAHL;
-        private int SPALTE_ZUORDNUNG;
+        public int SPALTE_ID;
+        public int SPALTE_NAME;
+        public int SPALTE_VORNAME;
+        public int SPALTE_KLASSE;
+        public int SPALTE_KLASSENLEHRER;
+        public int SPALTE_ERSTWAHL;
+        public int SPALTE_ZWEITWAHL;
+        public int SPALTE_DRITTWAHL;
+        public int SPALTE_ZUORDNUNG;
         #endregion
         public MainFrm()
         {
@@ -70,6 +69,22 @@ namespace WU_Einteilung
         private void btn_list_Click(object sender, EventArgs e)
         {
             
+        }
+
+        private void btn_conf_Click(object sender, EventArgs e)
+        {
+            new ConfigFrm().Show();
+        }
+
+        private void btn_files_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                tbx_path.Text = ofd.FileName;
+                string safeFilePath = ofd.SafeFileName;
+            }
         }
 
         private void dokument_auslesen()
@@ -449,16 +464,7 @@ namespace WU_Einteilung
             }
         }
 
-        private void btn_files_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog ofd = new OpenFileDialog();
-
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                tbx_path.Text = ofd.FileName;
-                string safeFilePath = ofd.SafeFileName;
-            }
-        }
+        
 
     }
 }
