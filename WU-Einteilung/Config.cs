@@ -19,13 +19,13 @@ namespace WU_Einteilung
 
         private void Config_Load(object sender, EventArgs e)
         {
-            MessageBox.Show("");
+            
         }
 
         private void Config_FormClosing(object sender, FormClosingEventArgs e)
         {
-            MessageBox.Show("");
-        }
+
+        }  
 
 
     }

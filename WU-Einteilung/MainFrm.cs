@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Collections;
+using WU_Einteilung;
 namespace WU_Einteilung
 {
     public partial class MainFrm : Form
@@ -73,7 +74,7 @@ namespace WU_Einteilung
 
         private void btn_conf_Click(object sender, EventArgs e)
         {
-            new ConfigFrm().Show();
+            new ConfigFrm().Show(); 
         }
 
         private void btn_files_Click(object sender, EventArgs e)
