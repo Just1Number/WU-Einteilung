@@ -42,6 +42,8 @@
             this.tbx_firstnames = new System.Windows.Forms.TextBox();
             this.tbx_teachers = new System.Windows.Forms.TextBox();
             this.tbx_second = new System.Windows.Forms.TextBox();
+            this.tbx_assignments = new System.Windows.Forms.TextBox();
+            this.lbl_assignments = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lbl_names
@@ -113,6 +115,7 @@
             this.tbx_names.Name = "tbx_names";
             this.tbx_names.Size = new System.Drawing.Size(48, 20);
             this.tbx_names.TabIndex = 7;
+            this.tbx_names.TextChanged += new System.EventHandler(this.tbx_names_TextChanged);
             // 
             // tbx_classes
             // 
@@ -120,6 +123,7 @@
             this.tbx_classes.Name = "tbx_classes";
             this.tbx_classes.Size = new System.Drawing.Size(48, 20);
             this.tbx_classes.TabIndex = 8;
+            this.tbx_classes.TextChanged += new System.EventHandler(this.tbx_classes_TextChanged);
             // 
             // tbx_first
             // 
@@ -127,6 +131,7 @@
             this.tbx_first.Name = "tbx_first";
             this.tbx_first.Size = new System.Drawing.Size(48, 20);
             this.tbx_first.TabIndex = 9;
+            this.tbx_first.TextChanged += new System.EventHandler(this.tbx_first_TextChanged);
             // 
             // tbx_third
             // 
@@ -134,6 +139,7 @@
             this.tbx_third.Name = "tbx_third";
             this.tbx_third.Size = new System.Drawing.Size(48, 20);
             this.tbx_third.TabIndex = 10;
+            this.tbx_third.TextChanged += new System.EventHandler(this.tbx_third_TextChanged);
             // 
             // tbx_firstnames
             // 
@@ -141,6 +147,7 @@
             this.tbx_firstnames.Name = "tbx_firstnames";
             this.tbx_firstnames.Size = new System.Drawing.Size(48, 20);
             this.tbx_firstnames.TabIndex = 11;
+            this.tbx_firstnames.TextChanged += new System.EventHandler(this.tbx_firstnames_TextChanged);
             // 
             // tbx_teachers
             // 
@@ -148,6 +155,7 @@
             this.tbx_teachers.Name = "tbx_teachers";
             this.tbx_teachers.Size = new System.Drawing.Size(48, 20);
             this.tbx_teachers.TabIndex = 12;
+            this.tbx_teachers.TextChanged += new System.EventHandler(this.tbx_teachers_TextChanged);
             // 
             // tbx_second
             // 
@@ -155,10 +163,30 @@
             this.tbx_second.Name = "tbx_second";
             this.tbx_second.Size = new System.Drawing.Size(48, 20);
             this.tbx_second.TabIndex = 13;
+            this.tbx_second.TextChanged += new System.EventHandler(this.tbx_second_TextChanged);
+            // 
+            // tbx_assignments
+            // 
+            this.tbx_assignments.Location = new System.Drawing.Point(224, 124);
+            this.tbx_assignments.Name = "tbx_assignments";
+            this.tbx_assignments.Size = new System.Drawing.Size(48, 20);
+            this.tbx_assignments.TabIndex = 15;
+            this.tbx_assignments.TextChanged += new System.EventHandler(this.tbx_assignments_TextChanged);
+            // 
+            // lbl_assignments
+            // 
+            this.lbl_assignments.AutoSize = true;
+            this.lbl_assignments.Location = new System.Drawing.Point(143, 127);
+            this.lbl_assignments.Name = "lbl_assignments";
+            this.lbl_assignments.Size = new System.Drawing.Size(74, 13);
+            this.lbl_assignments.TabIndex = 14;
+            this.lbl_assignments.Text = "Zuordnungen:";
             // 
             // ConfigFrm
             // 
             this.ClientSize = new System.Drawing.Size(284, 262);
+            this.Controls.Add(this.tbx_assignments);
+            this.Controls.Add(this.lbl_assignments);
             this.Controls.Add(this.tbx_second);
             this.Controls.Add(this.tbx_teachers);
             this.Controls.Add(this.tbx_firstnames);
@@ -195,5 +223,7 @@
         private System.Windows.Forms.TextBox tbx_firstnames;
         private System.Windows.Forms.TextBox tbx_teachers;
         private System.Windows.Forms.TextBox tbx_second;
+        private System.Windows.Forms.TextBox tbx_assignments;
+        private System.Windows.Forms.Label lbl_assignments;
     }
 }

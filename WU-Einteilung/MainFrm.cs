@@ -40,15 +40,14 @@ namespace WU_Einteilung
         #endregion
 
         #region Konstanten
-        public int SPALTE_ID;
-        public int SPALTE_NAME;
-        public int SPALTE_VORNAME;
-        public int SPALTE_KLASSE;
-        public int SPALTE_KLASSENLEHRER;
-        public int SPALTE_ERSTWAHL;
-        public int SPALTE_ZWEITWAHL;
-        public int SPALTE_DRITTWAHL;
-        public int SPALTE_ZUORDNUNG;
+        public static int SPALTE_NAME = 2;
+        public static int SPALTE_VORNAME = 3;
+        public static int SPALTE_KLASSE = 4;
+        public static int SPALTE_KLASSENLEHRER = 5;
+        public static int SPALTE_ERSTWAHL = 6;
+        public static int SPALTE_ZWEITWAHL = 7;
+        public static int SPALTE_DRITTWAHL = 8;
+        public static int SPALTE_ZUORDNUNG = 9;
         #endregion
         public MainFrm()
         {
@@ -69,7 +68,7 @@ namespace WU_Einteilung
 
         private void btn_list_Click(object sender, EventArgs e)
         {
-            
+            MessageBox.Show(SPALTE_NAME.ToString());
         }
 
         private void btn_conf_Click(object sender, EventArgs e)
@@ -116,21 +115,20 @@ namespace WU_Einteilung
                 kurse_maxpersonen.Clear();
                 kurse_minpersonen.Clear();
                 add_item_to_log("Schüler werden ausgelesen");
-                for (int i = 0; !String.Equals(slist_range.Cells[i + 2, 2].Value, null); i++)
+                for (int i = 0; !String.Equals(slist_range.Cells[i + 2, SPALTE_NAME].Value, null); i++)
                 {
                     if (i % 50 == 49)
                     {
                         add_item_to_log(Convert.ToString(i + 1) + " Schüler wurden ausgelesen");
                     }
-                    slist_range.Cells[i + 2, 1].Value = i;
                     schueler_id.Add(i + 2);
-                    String name = slist_range.Cells[i + 2, 2].Value;
-                    String vorname = slist_range.Cells[i + 2, 3].Value;
-                    String klasse = slist_range.Cells[i + 2, 4].Value;
-                    String klassenlehrer = slist_range.Cells[i + 2, 5].Value;
-                    String erstwahl = slist_range.Cells[i + 2, 6].Value;
-                    String zweitwahl = slist_range.Cells[i + 2, 7].Value;
-                    String drittwahl = slist_range.Cells[i + 2, 8].Value;
+                    String name = slist_range.Cells[i + 2, SPALTE_NAME].Value;
+                    String vorname = slist_range.Cells[i + 2, SPALTE_VORNAME].Value;
+                    String klasse = slist_range.Cells[i + 2, SPALTE_KLASSE].Value;
+                    String klassenlehrer = slist_range.Cells[i + 2, SPALTE_KLASSENLEHRER].Value;
+                    String erstwahl = slist_range.Cells[i + 2, SPALTE_ERSTWAHL].Value;
+                    String zweitwahl = slist_range.Cells[i + 2, SPALTE_ZWEITWAHL].Value;
+                    String drittwahl = slist_range.Cells[i + 2, SPALTE_DRITTWAHL].Value;
                     if (!String.IsNullOrWhiteSpace(name)) schueler_namen.Add(name.Trim());
                     else schueler_namen.Add(null);
                     if (!String.IsNullOrWhiteSpace(vorname)) schueler_vornamen.Add(vorname.Trim());
@@ -192,13 +190,13 @@ namespace WU_Einteilung
                 {
                     if (zuordnungen[i] != null)
                     {
-                        slist_range.Cells[i + 2, 9].Value = zuordnungen[i];
-                        slist_range.Cells[i + 2, 10].Value = null;
+                        slist_range.Cells[i + 2, SPALTE_ZUORDNUNG].Value = zuordnungen[i];
+                        slist_range.Cells[i + 2, SPALTE_ZUORDNUNG + 1].Value = null;
                     }
                     else
                     {
-                        slist_range.Cells[i + 2, 9].Value = null;
-                        slist_range.Cells[i + 2, 10].Value = "!";
+                        slist_range.Cells[i + 2, SPALTE_ZUORDNUNG].Value = null;
+                        slist_range.Cells[i + 2, SPALTE_ZUORDNUNG + 1].Value = "!";
                     }
                 }
                 wu_liste.Save();
@@ -464,6 +462,8 @@ namespace WU_Einteilung
                 return Convert.ToString(number);
             }
         }
+
+        
 
         
 
