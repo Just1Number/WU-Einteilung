@@ -35,13 +35,14 @@
             this.lbx_log = new System.Windows.Forms.ListBox();
             this.btn_files = new System.Windows.Forms.Button();
             this.btn_conf = new System.Windows.Forms.Button();
+            this.btn_klist = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btn_zon
             // 
-            this.btn_zon.Location = new System.Drawing.Point(12, 220);
+            this.btn_zon.Location = new System.Drawing.Point(15, 218);
             this.btn_zon.Name = "btn_zon";
-            this.btn_zon.Size = new System.Drawing.Size(156, 48);
+            this.btn_zon.Size = new System.Drawing.Size(122, 48);
             this.btn_zon.TabIndex = 0;
             this.btn_zon.Text = "Zuordnen";
             this.btn_zon.UseVisualStyleBackColor = true;
@@ -57,9 +58,9 @@
             // 
             // btn_list
             // 
-            this.btn_list.Location = new System.Drawing.Point(188, 219);
+            this.btn_list.Location = new System.Drawing.Point(143, 218);
             this.btn_list.Name = "btn_list";
-            this.btn_list.Size = new System.Drawing.Size(156, 48);
+            this.btn_list.Size = new System.Drawing.Size(122, 48);
             this.btn_list.TabIndex = 2;
             this.btn_list.Text = "Kurslisten erstellen";
             this.btn_list.UseVisualStyleBackColor = true;
@@ -93,19 +94,30 @@
             // 
             // btn_conf
             // 
-            this.btn_conf.Location = new System.Drawing.Point(364, 220);
+            this.btn_conf.Location = new System.Drawing.Point(398, 218);
             this.btn_conf.Name = "btn_conf";
-            this.btn_conf.Size = new System.Drawing.Size(156, 48);
+            this.btn_conf.Size = new System.Drawing.Size(122, 48);
             this.btn_conf.TabIndex = 6;
             this.btn_conf.Text = "Einstellungen";
             this.btn_conf.UseVisualStyleBackColor = true;
             this.btn_conf.Click += new System.EventHandler(this.btn_conf_Click);
+            // 
+            // btn_klist
+            // 
+            this.btn_klist.Location = new System.Drawing.Point(270, 218);
+            this.btn_klist.Name = "btn_klist";
+            this.btn_klist.Size = new System.Drawing.Size(122, 48);
+            this.btn_klist.TabIndex = 7;
+            this.btn_klist.Text = "Klassenlisten erstellen";
+            this.btn_klist.UseVisualStyleBackColor = true;
+            this.btn_klist.Click += new System.EventHandler(this.btn_klist_Click);
             // 
             // MainFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(532, 280);
+            this.Controls.Add(this.btn_klist);
             this.Controls.Add(this.btn_conf);
             this.Controls.Add(this.btn_files);
             this.Controls.Add(this.lbx_log);
@@ -130,6 +142,7 @@
         private System.Windows.Forms.ListBox lbx_log;
         private System.Windows.Forms.Button btn_files;
         private System.Windows.Forms.Button btn_conf;
+        private System.Windows.Forms.Button btn_klist;
     }
 }
 

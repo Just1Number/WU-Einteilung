@@ -49,7 +49,7 @@ namespace WU_Einteilung
         public static int SPALTE_KLASSE = 3;
         public static int SPALTE_KLASSENLEHRER = 4;
         public static int SPALTE_WUSTUNDENALT = 5;
-        public static int SPALTE_WUSTUNDENNEU = 5;
+        public static int SPALTE_WUSTUNDENNEU = 6;
         public static int SPALTE_ERSTWAHL = 7;
         public static int SPALTE_ZWEITWAHL = 8;
         public static int SPALTE_DRITTWAHL = 9;
@@ -82,6 +82,12 @@ namespace WU_Einteilung
         {
             dokument_auslesen();
             kurstlisten_schreiben();
+        }
+
+        private void btn_klist_Click(object sender, EventArgs e)
+        {
+            dokument_auslesen();
+            klassenlisten_schreiben();
         }
 
         private void btn_conf_Click(object sender, EventArgs e)
@@ -128,7 +134,7 @@ namespace WU_Einteilung
                 add_item_to_log("Schüler werden ausgelesen");
                 for (int i = 0; !String.Equals(slist_range.Cells[i + 2, SPALTE_NAME].Value, null); i++)
                 {
-                    if (i % 50 == 49)
+                    if (i % 25 == 24)
                     {
                         add_item_to_log(Convert.ToString(i + 1) + " Schüler wurden ausgelesen");
                     }
@@ -141,7 +147,7 @@ namespace WU_Einteilung
                     String zweitwahl = slist_range.Cells[i + 2, SPALTE_ZWEITWAHL].Value;
                     String drittwahl = slist_range.Cells[i + 2, SPALTE_DRITTWAHL].Value;
                     String zuordnung = slist_range.Cells[i + 2, SPALTE_ZUORDNUNG].Value;
-                    String wustunde  = slist_range.Cells[i + 2, SPALTE_WUSTUNDENALT].Value;
+                    String wustunde  = Convert.ToString(slist_range.Cells[i + 2, SPALTE_WUSTUNDENALT].Value);
                     if (!String.IsNullOrWhiteSpace(name)) schueler_namen.Add(name.Trim());
                     else schueler_namen.Add(null);
                     if (!String.IsNullOrWhiteSpace(vorname)) schueler_vornamen.Add(vorname.Trim());
@@ -188,9 +194,8 @@ namespace WU_Einteilung
                     wu_liste.Save();
                     wu_liste.Close();
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
-                    MessageBox.Show(e.Message);
                 }
             }
         }
@@ -213,9 +218,9 @@ namespace WU_Einteilung
                     {
                         slist_range.Cells[i + 2, SPALTE_ZUORDNUNG].Value = zuordnungen[i];
                         slist_range.Cells[i + 2, SPALTE_ZUORDNUNG + 1].Value = null;
-                        slist_range.Cells[i + 2, SPALTE_WUSTUNDENNEU].Value = schueler_wustunden[i] + kurse_stunden[kurse_id.IndexOf(zuordnungen[i])]; 
+                        slist_range.Cells[i + 2, SPALTE_WUSTUNDENNEU].Value = schueler_wustunden[i] + kurse_stunden[kurse_id.IndexOf(zuordnungen[i])];
                     }
-                    else if ((schueler_wustunden[i] < 5) || (schueler_erstwahl[i] != null))
+                    else if ((schueler_wustunden[i] < 5) || (Convert.ToString(slist_range.Cells[i + 2, SPALTE_ERSTWAHL].Value).Trim != null))
                     {
                         slist_range.Cells[i + 2, SPALTE_ZUORDNUNG].Value = null;
                         slist_range.Cells[i + 2, SPALTE_ZUORDNUNG + 1].Value = "!";
@@ -528,6 +533,54 @@ namespace WU_Einteilung
             }
         }
 
+        private void klassenlisten_schreiben()
+        {
+            try
+            {
+                Microsoft.Office.Interop.Excel.Workbook klassenlisten;
+                klassenlisten = myExcel.Workbooks.Add(1);
+                List<string> klassen = schueler_klasse.Distinct().ToList();
+                for (int klasse = 0; klasse < klassen.Count; klasse++)
+                {
+                    klassen.Sort();
+                    add_item_to_log("Klassenliste für " + klassen[klasse] + " wird erstellt");
+                    Worksheet worksheet = (Worksheet)klassenlisten.Worksheets.Add();
+                    worksheet.Name = klassen[klasse];
+                    createHeaders(worksheet, 1, 1, "Name", "A1", "A1", 0, true, 16);
+                    createHeaders(worksheet, 1, 2, "Vorname", "B1", "B1", 0, true, 16);
+                    createHeaders(worksheet, 1, 3, "Wuh bisher", "C1", "C1", 0, true, 10);
+                    createHeaders(worksheet, 1, 4, "Erstwahl", "D1", "D1", 0, true, 10);
+                    createHeaders(worksheet, 1, 5, "Zweitwahl", "E1", "E1", 0, true, 10);
+                    createHeaders(worksheet, 1, 6, "Drittwahl", "F1", "F1", 0, true, 10);
+                    createHeaders(worksheet, 1, 7, "Zuordnung", "G1", "G1", 0, true, 10);
+                    int row = 2;
+                    for (int schueler = 0; schueler < schueler_namen.Count; schueler++)
+                    {
+                        if (schueler_klasse[schueler] == klassen[klasse])
+                        {
+                            addData(worksheet, row, 1, schueler_namen[schueler], "A" + row, "A" + row, "");
+                            addData(worksheet, row, 2, schueler_vornamen[schueler], "B" + row, "B" + row, "");
+                            addData(worksheet, row, 3, Convert.ToString(schueler_wustunden[schueler]), "C" + row, "C" + row, "");
+                            addData(worksheet, row, 4, schueler_erstwahl[schueler], "D" + row, "D" + row, "");
+                            addData(worksheet, row, 5, schueler_zweitwahl[schueler], "E" + row, "E" + row, "");
+                            addData(worksheet, row, 6, schueler_drittwahl[schueler], "F" + row, "F" + row, "");
+                            addData(worksheet, row, 7, schueler_zuordnung[schueler], "G" + row, "G" + row, "");
+                            row++;
+                        }
+                    }
+                }
+                DateTime currentDate = DateTime.Now;
+                String date = withzero(currentDate.Hour) + withzero(currentDate.Minute) + withzero(currentDate.Second) + "_" + withzero(currentDate.Day) + withzero(currentDate.Month) + currentDate.Year;
+                document_path = new FileInfo(@tbx_path.Text).DirectoryName + "\\Wu-Einteilung_klassenlisten_" + date;
+                klassenlisten.SaveAs(@document_path);
+                klassenlisten.Close();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, e.Source);
+            }
+        }
+
         public void createHeaders(Worksheet worksheet, int row, int col, string htext, string cell1,
         string cell2, int mergeColumns, bool font, int size)
         {
@@ -548,5 +601,6 @@ namespace WU_Einteilung
             workSheet_range.Borders.Color = System.Drawing.Color.Black.ToArgb();
             workSheet_range.NumberFormat = format;
         }
+
     }
 }
