@@ -214,13 +214,18 @@ namespace WU_Einteilung
                 add_item_to_log("Zuordnungen werden in Tabelle eingetragen");
                 for (int i = 0; i < zuordnungen.Length; i++)
                 {
+                    string erstwahl = Convert.ToString(slist_range.Cells[i + 2, SPALTE_ERSTWAHL].Value);
+                    if (erstwahl != null)
+                    {
+                        if (erstwahl.Trim() == "") erstwahl = null; 
+                    }
                     if (zuordnungen[i] != null)
                     {
                         slist_range.Cells[i + 2, SPALTE_ZUORDNUNG].Value = zuordnungen[i];
                         slist_range.Cells[i + 2, SPALTE_ZUORDNUNG + 1].Value = null;
                         slist_range.Cells[i + 2, SPALTE_WUSTUNDENNEU].Value = schueler_wustunden[i] + kurse_stunden[kurse_id.IndexOf(zuordnungen[i])];
                     }
-                    else if ((schueler_wustunden[i] < 5) || (Convert.ToString(slist_range.Cells[i + 2, SPALTE_ERSTWAHL].Value).Trim != null))
+                    else if ((schueler_wustunden[i] < 5) || (erstwahl != null))
                     {
                         slist_range.Cells[i + 2, SPALTE_ZUORDNUNG].Value = null;
                         slist_range.Cells[i + 2, SPALTE_ZUORDNUNG + 1].Value = "!";
