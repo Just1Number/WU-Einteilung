@@ -526,9 +526,11 @@ namespace WU_Einteilung
                         }
                     }
                 }
+                add_item_to_log("Alle Kurslisten wurden erstellt");
                 DateTime currentDate = DateTime.Now;
                 String date = withzero(currentDate.Hour) + withzero(currentDate.Minute) + withzero(currentDate.Second) + "_" + withzero(currentDate.Day) + withzero(currentDate.Month) + currentDate.Year;
                 document_path = new FileInfo(@tbx_path.Text).DirectoryName + "\\Wu-Einteilung_Kurslisten_" + date;
+                add_item_to_log("Speichere Kurslisten unter " + document_path);
                 kurslisten.SaveAs(@document_path);
                 kurslisten.Close();
             }
@@ -574,9 +576,11 @@ namespace WU_Einteilung
                         }
                     }
                 }
+                add_item_to_log("Alle Klassenlisten wurden erstellt");
                 DateTime currentDate = DateTime.Now;
                 String date = withzero(currentDate.Hour) + withzero(currentDate.Minute) + withzero(currentDate.Second) + "_" + withzero(currentDate.Day) + withzero(currentDate.Month) + currentDate.Year;
                 document_path = new FileInfo(@tbx_path.Text).DirectoryName + "\\Wu-Einteilung_klassenlisten_" + date;
+                add_item_to_log("Speichere Klassenlisten unter " + document_path);
                 klassenlisten.SaveAs(@document_path);
                 klassenlisten.Close();
             }
